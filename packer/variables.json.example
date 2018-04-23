@@ -1,6 +1,6 @@
 {
-  "proj_id": "null",
-  "source_image_family": "null",
+  "proj_id": "awesome_project",
+  "source_image_family": "ubuntu-1604-lts",
   "machine_type": "g1-small",
   "disk_type": "pd-standard",
   "disk_size": "10",
