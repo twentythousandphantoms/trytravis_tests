@@ -53,21 +53,19 @@ gsutil cp startup_script.sh gs://my-awesome-infra-199712-bucket
 Deploy command
 ```
 gcloud compute instances create reddit-app \
---boot-disk-size=10GB \
---image-family ubuntu-1604-lts \
---image-project=ubuntu-os-cloud \
---machine-type=g1-small \
---tags default-puma-server \
---restart-on-failure \
---scopes storage-ro \
---metadata startup-script-url=gs://my-awesome-infra-199712-bucket/startup_script.sh
+  --boot-disk-size=10GB \
+  --image-family ubuntu-1604-lts \
+  --image-project=ubuntu-os-cloud \
+  --machine-type=g1-small \
+  --tags default-puma-server \
+  --restart-on-failure \
+  --scopes storage-ro \
+  --metadata startup-script-url=gs://my-awesome-infra-199712-bucket/startup_script.sh
 ```
 #### 1.2 Delete test reddit-app instance
 ```
 gcloud compute instances delete reddit-app
 ```
-
-
 #### 2. Create a Google Compute Engine [firewall rule][4] 
 ```
 gcloud compute firewall-rules create default-puma-server\
@@ -103,10 +101,10 @@ See `./packer/ubuntu16.json` and `./packer/variables.json` templates
 Build (use your proj_id):
 ```
 cd packer && packer build \
--var='proj_id=infra-199712' \
--var='source_image_family=ubuntu-1604-lts' \
--var-file=variables.json \
-ubuntu16.json
+  -var='proj_id=infra-199712' \
+  -var='source_image_family=ubuntu-1604-lts' \
+  -var-file=variables.json \
+  ubuntu16.json
 ```
 Look at the list of images:
 ```
@@ -117,13 +115,35 @@ reddit-base-1524503552  infra-199712  reddit-base              READY
 This image allows you to create instanses like that:
 ```
 gcloud compute instances create reddit-app \
---image=reddit-base-1524503552 \
---machine-type=g1-small \
---tags=default-puma-server \
---metadata-from-file \
-startup-script=config-scripts/deploy.sh
+  --image=reddit-base-1524503552 \
+  --machine-type=g1-small \
+  --tags=default-puma-server \
+  --metadata-from-file \
+  startup-script=config-scripts/deploy.sh
 ```
+#### 2.b Create a Packer template and build the immutable image with entirely app (reddit)
+There are [Immutable Infrastructure methodology][8]. Read about [immutable servers][9].
+
+See `packer/immutable.json`
+
+Bake the image with command:
+```
+cd packer && \
+packer build \
+  -var-file=variables.json \
+  -var='proj_id=infra-199712' \
+  -var='source_image_family=ubuntu-1604-lts' \
+  immutable.json
+```
+Then create immutable instance with script:
+```
+$ sh config-scripts/create-reddit-vm.sh
+```
+and get running reddit-app in few seconds (on EXTERNAL_IP:9292)
+
 
 [5]: https://www.packer.io/downloads.html
 [6]: https://cloud.google.com/compute/docs/api/how-tos/authorization#gcloud_auth_login
 [7]: https://www.packer.io/docs/builders/googlecompute.html
+[8]: https://www.oreilly.com/ideas/an-introduction-to-immutable-infrastructure
+[9]: https://martinfowler.com/bliki/ImmutableServer.html
