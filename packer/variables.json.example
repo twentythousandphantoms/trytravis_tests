@@ -1,11 +1,11 @@
 {
-  "proj_id": "null",
-  "source_image_family": "null",
+  "proj_id": "awesome_project",
+  "source_image_family": "ubuntu-1604-lts",
   "machine_type": "g1-small",
   "disk_type": "pd-standard",
   "disk_size": "10",
   "image_description": "Ubuntu 16.04 LTS ultra image",
   "network": "default",
-  "tags": ["default-fuck-server", "sometag2"]
+  "tags": "'default-fuck-server', 'sometag2'"
 }
 
