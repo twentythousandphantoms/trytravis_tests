@@ -147,3 +147,11 @@ and get running reddit-app in few seconds (on EXTERNAL_IP:9292)
 [7]: https://www.packer.io/docs/builders/googlecompute.html
 [8]: https://www.oreilly.com/ideas/an-introduction-to-immutable-infrastructure
 [9]: https://martinfowler.com/bliki/ImmutableServer.html
+
+## Homework 07 (terrafrom)
+Here we described infrastructure using [terraform][10]. In terraform/main.tf there are thee resources described: metadata (ssh-keys), instance and firewall rule.
+
+Notes aboud ssh-keys adding:
+1. If there are multiple SSH keys, each key will be separated by a newline character (\n). But if use macro, don't need to use any separator. Example: terraform/main.tf 
+2. `Error, key 'ssh-keys' already exists in project 'infra-199712'` — keys that I added earlier through web-console. So, to continue, I deleted it. 
+3. After adding key using terraform you must add ones only using terraform further. Otherwise, the next time you start terrafrom, it will erase keys.
