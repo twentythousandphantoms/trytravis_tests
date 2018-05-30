@@ -151,7 +151,41 @@ and get running reddit-app in few seconds (on EXTERNAL_IP:9292)
 ## Homework 07 (terrafrom)
 Here we described infrastructure using [terraform][10]. In terraform/main.tf there are thee resources described: metadata (ssh-keys), instance and firewall rule.
 
+### *
+
 Notes aboud ssh-keys adding:
 1. If there are multiple SSH keys, each key will be separated by a newline character (\n). But if use macro, don't need to use any separator. Example: terraform/main.tf 
 2. `Error, key 'ssh-keys' already exists in project 'infra-199712'` — keys that I added earlier through web-console. So, to continue, I deleted it. 
 3. After adding key using terraform you must add ones only using terraform further. Otherwise, the next time you start terrafrom, it will erase keys.
+
+### **
+
+Also [HTTP Load Balancer][27] is added with configuration described in lb.tf.
+There are several entities(components) that must be described for succesful launching the LB:
+* instances (Docs: [Terraform][11], [GCP][19])
+* unmanaged_instance_group (Docs: [Terraform][12], [GCP][20])
+* backend (Docs: [Terraform][13], [GCP][21])
+* backend_service (Docs: [Terraform][14], [GCP][22])
+* health_check (Docs: [Terraform][15], [GCP][23])
+* url_map (Docs: [Terraform][16], [GCP][24])
+* target_http_proxy (Docs: [Terraform][17], [GCP][25])
+* finally, global_forwarding_rule (Docs: [Terraform][18], [GCP][26])
+
+[10]: https://www.terraform.io/docs/providers/google/r/compute_instance.html
+[11]: https://www.terraform.io/docs/providers/google/r/compute_instance.html
+[12]: https://www.terraform.io/docs/providers/google/r/compute_instance_group.html
+[13]: https://www.terraform.io/docs/providers/google/r/compute_backend_service.html#backend
+[14]: https://www.terraform.io/docs/providers/google/r/compute_backend_service.html
+[15]: https://www.terraform.io/docs/providers/google/r/compute_health_check.html
+[16]: https://www.terraform.io/docs/providers/google/r/compute_url_map.html
+[17]: https://www.terraform.io/docs/providers/google/r/compute_target_http_proxy.html
+[18]: https://www.terraform.io/docs/providers/google/r/compute_global_forwarding_rule.html
+[19]: https://cloud.google.com/compute/docs/instances/
+[20]: https://cloud.google.com/compute/docs/instance-groups/#unmanaged_instance_groups
+[21]: https://cloud.google.com/compute/docs/load-balancing/http/
+[22]: https://cloud.google.com/compute/docs/load-balancing/http/backend-service
+[23]: https://cloud.google.com/compute/docs/load-balancing/health-checks
+[24]: https://cloud.google.com/compute/docs/load-balancing/http/url-map
+[25]: https://cloud.google.com/compute/docs/load-balancing/http/target-proxies
+[26]: https://cloud.google.com/compute/docs/load-balancing/http/global-forwarding-rules
+[27]: https://cloud.google.com/compute/docs/load-balancing/http/
