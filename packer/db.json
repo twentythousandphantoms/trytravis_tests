@@ -5,9 +5,9 @@
     "project_id": "{{user `proj_id`}}",
     "machine_type": "f1-micro",
     "zone": "europe-west1-c",
-    "image_name": "reddit-base-{{timestamp}}",
+    "image_name": "reddit-db-base-{{timestamp}}",
     "image_description": "{{user `image_description`}}",
-    "image_family": "reddit-base",
+    "image_family": "reddit-db-base",
     "source_image_family": "{{user `source_image_family`}}",
     "ssh_username": "appuser",
     "disk_size": "{{user `disk_size`}}",
@@ -17,11 +17,6 @@
     }
   ],
   "provisioners": [
-    {
-      "type": "shell",
-      "script": "scripts/install_ruby.sh",
-      "execute_command": "sudo {{.Path}}"
-    },
     {
       "type": "shell",
       "script": "scripts/install_mongodb.sh",
