@@ -3,10 +3,10 @@ Overview Documentaion: https://cloud.google.com/compute/docs/load-balancing/http
 */
 
 resource "google_compute_global_forwarding_rule" "puma_global_forwarding_rule" {
-  name       = "puma-default-rule"
+  name        = "puma-default-rule"
   description = "It's binds an ip and port to a target HTTP(s) proxy. Docs: https://cloud.google.com/compute/docs/load-balancing/http/global-forwarding-rules"
-  target     = "${google_compute_target_http_proxy.puma_http_proxy.self_link}"
-  port_range = "80"
+  target      = "${google_compute_target_http_proxy.puma_http_proxy.self_link}"
+  port_range  = "80"
 }
 
 resource "google_compute_target_http_proxy" "puma_http_proxy" {
@@ -59,4 +59,3 @@ resource "google_compute_instance_group" "puma_group" {
 
   zone = "${var.zone}"
 }
-
