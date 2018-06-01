@@ -198,13 +198,13 @@ App, Db and VPC terraform are placed in modules. [Modules][28] allows to reuse t
 
 Terraform [state file][29] storage was moved from local to remote. The [Google Cloud Storage][30] is created and ["backend"][31] is configured for that. It supports [State Storage and Locking][32]. From now on it is possible to work in team without fear of damage to the infrastructure as a result of the one-time launch "terraform apply" from different places.
 
-[28][https://www.terraform.io/docs/modules/index.html]
-[29][https://www.terraform.io/docs/state/index.html]
-[30][https://www.terraform.io/docs/backends/types/gcs.html]
-[31][https://www.terraform.io/docs/backends/index.html]
-[32][https://www.terraform.io/docs/backends/state.html]
-[29][https://www.terraform.io/docs/state/]
+[28]:https://www.terraform.io/docs/modules/index.html
+[29]:https://www.terraform.io/docs/state/index.html
+[30]:https://www.terraform.io/docs/backends/types/gcs.html
+[31]:https://www.terraform.io/docs/backends/index.html
+[32]:https://www.terraform.io/docs/backends/state.html
+[29]:https://www.terraform.io/docs/state/
 
 ### **
 
-Provisioners for deploy reddit-app configured. 
+Provisioners for deploy reddit-app are configured. 
