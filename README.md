@@ -153,7 +153,7 @@ Here we described infrastructure using [terraform][10]. In terraform/main.tf the
 
 ### *
 
-Notes aboud ssh-keys adding:
+Notes about ssh-keys adding:
 1. If there are multiple SSH keys, each key will be separated by a newline character (\n). But if use macro, don't need to use any separator. Example: terraform/main.tf 
 2. `Error, key 'ssh-keys' already exists in project 'infra-199712'` — keys that I added earlier through web-console. So, to continue, I deleted it. 
 3. After adding key using terraform you must add ones only using terraform further. Otherwise, the next time you start terrafrom, it will erase keys.
@@ -189,3 +189,19 @@ There are several entities(components) that must be described for succesful laun
 [25]: https://cloud.google.com/compute/docs/load-balancing/http/target-proxies
 [26]: https://cloud.google.com/compute/docs/load-balancing/http/global-forwarding-rules
 [27]: https://cloud.google.com/compute/docs/load-balancing/http/
+
+## Homework 08 (terrafrom-2)
+
+App, Db and VPC terraform are placed in modules. [Modules][28] allows to reuse the code in various cases, such as different enviroments. So "prod" and "stage" enviroments are created. 
+
+### *
+
+Terraform [state file][29] storage was moved from local to remote. The [Google Cloud Storage][30] is created and ["backend"][31] is configured for that. It supports [State Storage and Locking][32]. From now on it is possible to work in team without fear of damage to the infrastructure as a result of the one-time launch "terraform apply" from different places.
+
+[28][https://www.terraform.io/docs/modules/index.html]
+[29][https://www.terraform.io/docs/state/index.html]
+[30][https://www.terraform.io/docs/backends/types/gcs.html]
+[31][https://www.terraform.io/docs/backends/index.html]
+[32][https://www.terraform.io/docs/backends/state.html]
+[29][https://www.terraform.io/docs/state/]
+
