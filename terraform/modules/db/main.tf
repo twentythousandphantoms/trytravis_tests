@@ -18,10 +18,21 @@ resource "google_compute_instance" "db" {
   metadata {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
+
+  connection {
+    type        = "ssh"
+    user        = "appuser"
+    agent       = false
+    private_key = "${file(var.private_key_path)}"
+  }
+
+  provisioner "remote-exec" {
+    script = "${path.module}/files/binding_any.mongodb.sh"
+  }
 }
 
 resource "google_compute_firewall" "firewall_mongo" {
-  name    = "allow-mongo-default"
+  name    = "reddit-app-allow-mongo"
   network = "default"
 
   allow {
@@ -30,5 +41,5 @@ resource "google_compute_firewall" "firewall_mongo" {
   }
 
   target_tags = ["reddit-db"]
-  source_tags = ["reddir-app"]
+  source_tags = ["reddit-app"]
 }

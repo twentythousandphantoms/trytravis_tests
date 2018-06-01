@@ -205,3 +205,6 @@ Terraform [state file][29] storage was moved from local to remote. The [Google C
 [32][https://www.terraform.io/docs/backends/state.html]
 [29][https://www.terraform.io/docs/state/]
 
+### **
+
+Provisioners for deploy reddit-app configured. 

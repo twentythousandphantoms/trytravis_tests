@@ -21,6 +21,30 @@ resource "google_compute_instance" "app" {
   metadata {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
+
+  connection {
+    type        = "ssh"
+    user        = "appuser"
+    agent       = false
+    private_key = "${file("${var.private_key_path}")}"
+  }
+
+  provisioner "file" {
+    content     = "${data.template_file.puma_service.rendered}"
+    destination = "/tmp/puma.service"
+  }
+
+  provisioner "remote-exec" {
+    script = "${path.module}/files/deploy.sh"
+  }
+}
+
+data "template_file" "puma_service" {
+  template = "${file("${path.module}/files/puma.service.tpl")}"
+
+  vars {
+    db_internal_ip = "${var.db_internal_ip}"
+  }
 }
 
 resource "google_compute_address" "app_ip" {
@@ -28,7 +52,7 @@ resource "google_compute_address" "app_ip" {
 }
 
 resource "google_compute_firewall" "firewall_puma" {
-  name    = "allow-puma-default"
+  name    = "reddit-app-allow-puma"
   network = "default"
 
   allow {
@@ -39,3 +63,19 @@ resource "google_compute_firewall" "firewall_puma" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["reddit-app"]
 }
+
+/*
+resource "google_compute_firewall" "firewall_http" {
+  name    = "reddit-app-allow-http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["reddit-app"]
+}
+*/
+
