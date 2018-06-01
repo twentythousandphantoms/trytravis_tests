@@ -208,3 +208,14 @@ Terraform [state file][29] storage was moved from local to remote. The [Google C
 ### **
 
 Provisioners for deploy reddit-app are configured. 
+
+## Homework 01 (ansible-1)
+
+Ansible initiated, inventory created, first playbook "Clone" added.
+ANsible have a good reports about what it really changes or not.
+
+### * 
+
+Also inventory.json and inventory.sh placed that simulates [dynamic inventory][33].  
+
+[33]: https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html
