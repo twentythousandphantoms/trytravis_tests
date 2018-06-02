@@ -209,7 +209,7 @@ Terraform [state file][29] storage was moved from local to remote. The [Google C
 
 Provisioners for deploy reddit-app are configured. 
 
-## Homework 01 (ansible-1)
+## Homework 09 (ansible-1)
 
 Ansible initiated, inventory created, first playbook "Clone" added.
 ANsible have a good reports about what it really changes or not.
@@ -219,3 +219,16 @@ ANsible have a good reports about what it really changes or not.
 Also inventory.json and inventory.sh placed that simulates [dynamic inventory][33].  
 
 [33]: https://docs.ansible.com/ansible/latest/dev_guide/developing_inventory.html
+
+## Homework 10 (ansible-2)
+
+- Try some options to compose ansible playbooks for reddit-app deploying:
+  - ansible deploy application playbook with one play `reddit_app_one_play.yml`
+  - ansible deploy application playbook with multiple plays `reddit_app_one_play.yml`
+  - set of ansible deploy application playbooks (the best practice): `site.yml` imncludes `app.yml`, `db.yml`, and `deploy.yml`
+- `*` Init [dynamic inventory][36] with [gce.py][34] (and [gce.ini][35] <-- here is short installation instruction)
+- integrate ansible into packer
+
+[34]: https://github.com/ansible/ansible/blob/devel/contrib/inventory/gce.py
+[35]: https://github.com/ansible/ansible/blob/devel/contrib/inventory/gce.ini
+[36]: https://docs.ansible.com/ansible/latest/scenario_guides/guide_gce.html#gce-dynamic-inventory
