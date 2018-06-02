@@ -22,6 +22,7 @@ resource "google_compute_instance" "app" {
     ssh-keys = "appuser:${file(var.public_key_path)}"
   }
 
+/* 
   connection {
     type        = "ssh"
     user        = "appuser"
@@ -37,6 +38,7 @@ resource "google_compute_instance" "app" {
   provisioner "remote-exec" {
     script = "${path.module}/files/deploy.sh"
   }
+*/
 }
 
 data "template_file" "puma_service" {
