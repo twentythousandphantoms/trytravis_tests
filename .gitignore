@@ -8,3 +8,4 @@ variables.json
 *.pem
 gce.ini
 jdauphant.nginx
+vault.key
