@@ -1,4 +1,5 @@
 # twentythousandphantoms_infra
+[![Build Status](https://travis-ci.org/twentythousandphantoms/trytravis_tests.svg?branch=ansible-3)](https://travis-ci.org/twentythousandphantoms/trytravis_tests)
 
 ## Homework 04 (cloud-bastion)
 

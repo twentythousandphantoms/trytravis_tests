@@ -2,8 +2,30 @@ dist: trusty
 sudo: required
 language: bash
 before_install:
-- curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-02/run.sh |
-  bash
+  - curl https://raw.githubusercontent.com/express42/otus-homeworks/2018-02/run.sh | bash
+  - touch ~/.ssh/appuser.pub && touch ~/.ssh/appuser
+install:
+  - sudo pip install ansible-lint
+  - sudo curl -LO https://releases.hashicorp.com/packer/1.2.3/packer_1.2.3_linux_amd64.zip
+  - sudo unzip -o packer*.zip -d /usr/local/bin/
+  - sudo curl -LO https://releases.hashicorp.com/terraform/0.11.7/terraform_0.11.7_linux_amd64.zip
+  - sudo unzip -o terraform*.zip -d /usr/local/bin/
+  - sudo curl -LO https://github.com/wata727/tflint/releases/download/v0.5.4/tflint_linux_amd64.zip
+  - sudo unzip -o tflint*.zip -d /usr/local/bin/
+  - sudo rm *.zip
+script:
+  - packer validate -var-file=packer/variables.json.example packer/app.json
+  - packer validate -var-file=packer/variables.json.example packer/db.json
+  - packer validate -var-file=packer/variables.json.example packer/immutable.json
+  - packer validate -var-file=packer/variables.json.example packer/ubuntu16.json
+
+  - cd terraform/stage && mv terraform.tfvars.example terraform.tfvars && 
+    terraform init -backend=false && terraform validate && tflint --error-with-issues
+  - cd ../prod && mv terraform.tfvars.example terraform.tfvars && 
+    terraform init -backend=false && terraform validate && tflint --error-with-issues
+
+  - cd ../../ansible ansible-lint --exclude=roles/jdauphant.nginx playbooks/*
+
 notifications:
   slack:
     secure: dLTxN2nha8Bo/OD4WzdV5M0fblhPCw979XUQ0dyNVDFS+qxscGaoFdrntraCkv9A0LUSyS97EM9fxBLHA+TQytowqasrMNdNiG+y62xL5kPmkc8gn2Cg0C5Z363jZOna3WUHhhwFlPc3TORwW3lr5ZDoqeUQWnQG4hkqd+crm06kk2SzhjerBdmHHhhNf9HUz+hPkoi61vVPKzooLo6AhJIran3HpaVGdQtj5S2XdrQGpdvhuRgkzq8Ob0XQXW0rnmersFrwbeAddmAuDr0H4geaXnv7CkQGlx6puga4sDEGiUlDQH6shadetsqh72lQeSIgKigeNVLkMq/Sl9mP1h2IEXwAOTzEZaMX/y6HZqwuBGBa9TXeh3a6/Nk16GiHc1On2auKbnqP20NvmPvC9zT9i/gn0tNXPkD6D6vrLL2xZoqbi0nW6YTMtVpdgLnCxOHEzHSNDvMIqHvHSG1NuqHhJVFZ8Hxp/fnOjAdYFBVy0GrE5ykECc2YYpXrhLJW7TeT8LWz4wP1FxVEsXbIy8PKLRr+rD+5ARxLk074xGAvvkENSvepwpvtQtELKpV00zyRSZhUagofXn6fhEE0Goqz/2PFTbVbl/eGlM0eliY8aWWUBTFtyKs+Vj3B0nzPC0TFcXlBV3Pog/lQXKNcAyzSDV8svkXZpG+3PqGxwuw=
