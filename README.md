@@ -209,11 +209,11 @@ Terraform [state file][29] storage was moved from local to remote. The [Google C
 ### **
 
 Provisioners for deploy reddit-app are configured. 
-
 ## Homework 09 (ansible-1)
 
 Ansible initiated, inventory created, first playbook "Clone" added.
-ANsible have a good reports about what it really changes or not.
+
+Ansible have a good reports about what it really changes or not.
 
 ### * 
 
@@ -233,3 +233,24 @@ Also inventory.json and inventory.sh placed that simulates [dynamic inventory][3
 [34]: https://github.com/ansible/ansible/blob/devel/contrib/inventory/gce.py
 [35]: https://github.com/ansible/ansible/blob/devel/contrib/inventory/gce.ini
 [36]: https://docs.ansible.com/ansible/latest/scenario_guides/guide_gce.html#gce-dynamic-inventory
+
+## Homework 11 (ansible-3)
+
+- playbooks is the code that is not reusable, so let's convert it to roles:
+  > [5a7932b](5a7932b) `add app & db ansible roles`
+- then create several environments:
+  > [7fb0d6c](7fb0d6c) `create ansible envs (stage & prod) & their inventories`
+- and it is possible now to use that roles in environments with different variables:
+  > [cc9769d](cc9769d) `ansible environments basic configuration with variables`
+- then we can to clean up the playbooks directory:
+  > [995a7d4](995a7d4) restructuring ansible playbooks
+- just add external role to `requirements.yml` and required variables to [`group_vars`][37], run `ansible-galaxy install -r requirements.yml` and get freebie:
+  > [49ae87f](49ae87f) add ansible role jdauphant.nginx & allow http access
+### **
+- I just spend few days on fixing errors for Travis. fuck that
+  > [89133e6](89133e6) (extra) Travis CI tests & fixes
+
+But I guess I would have spent more time to make all that infrastructure work correctly if I tried without Travis CI and [trytravis][38].
+
+[37]: https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#splitting-out-host-and-group-specific-data
+[38]: https://github.com/SethMichaelLarson/trytravis
