@@ -10,3 +10,10 @@ gce.ini
 jdauphant.nginx
 .imported_roles/
 vault.key
+*.swp
+.vagrant/
+*.log
+*.pyc
+.molecule
+.cache
+.pytest_cache
