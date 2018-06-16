@@ -2,8 +2,7 @@
 - src: jdauphant.nginx
   version: "v2.13"
 
-- src: git@github.com:twentythousandphantoms/twentythousandphantoms_infra_db.git
-  scm: git
+- src: https://github.com/twentythousandphantoms/twentythousandphantoms_infra_db.git
   version: "v0.1"
   name: db
 

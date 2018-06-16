@@ -1,2 +1,3 @@
 trytravis
 ansible-lint
+requests
