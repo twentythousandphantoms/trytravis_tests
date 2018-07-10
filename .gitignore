@@ -1,7 +1,9 @@
+*.swp
 *.tar
 *.retry
 *.log
 *.pyc
+*.pub
 .molecule
 .cache
 .pytest_cache
